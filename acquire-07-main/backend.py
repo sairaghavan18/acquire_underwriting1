@@ -180,7 +180,8 @@ async def underwrite(
         t12_summary = aggregate_t12(table_dfs.get("t12", []), paths)
  
         splits = split_documents(docs)
-        vs = build_vectorstore(splits)
+        vs = build_vectorstore_incremental(splits)
+        ##narrative_fields = extract_narrative_fields(vs)
         narrative_fields = extract_narrative_fields(vs)
  
         # Parse overrides

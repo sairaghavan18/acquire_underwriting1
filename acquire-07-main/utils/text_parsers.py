@@ -115,3 +115,86 @@ def parse_t12_from_text(path: str) -> Dict[str, Optional[float]]:
         "operating_expenses": opex,
         "net_operating_income": noi
     }
+@traceable(name="parse_rent_roll_summary_text")
+def parse_rent_roll_summary_text(path: str) -> dict:
+    """
+    Extracts 'Rent Roll Summary' values like Total Units, Current Rent Total, Market Rent Total, and Rent Gap %.
+    Useful for summary tables without tenant-level data.
+    """
+    import pdfplumber
+    import re
+
+    result = {
+        "total_units": None,
+        "current_rent_total": None,
+        "market_rent_total": None,
+        "rent_gap_pct": None,
+    }
+
+    try:
+        with pdfplumber.open(path) as pdf:
+            full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        patterns = {
+            "total_units": r"Total\s+Units[:\s]*([\d,\.]+)",
+            "current_rent_total": r"Current\s+Rent\s+Total[:\s]*\$?([\d,\,\.]+)",
+            "market_rent_total": r"Market\s+Rent\s+Total[:\s]*\$?([\d,\,\.]+)",
+            "rent_gap_pct": r"Rent\s+Gap\s*%[:\s]*([\d,\,\.]+)",
+        }
+
+        for key, pattern in patterns.items():
+            match = re.search(pattern, full_text, re.IGNORECASE)
+            if match:
+                val = match.group(1).replace(",", "")
+                try:
+                    result[key] = float(val)
+                except ValueError:
+                    result[key] = None
+
+    except Exception as e:
+        print(f"[WARN] parse_rent_roll_summary_text failed for {path}: {e}")
+
+    return result
+@traceable(name="parse_t12_summary_text")
+def parse_t12_summary_text(path: str) -> dict:
+    """
+    Extracts summary-level T12 metrics like:
+    Gross Potential Rent, Vacancy, Effective Gross Income, Operating Expenses, and NOI.
+    This is used when the PDF contains summary tables instead of detailed T12 rows.
+    """
+    import pdfplumber
+    import re
+
+    result = {
+        "gross_potential_rent": None,
+        "vacancy": None,
+        "effective_gross_income": None,
+        "operating_expenses": None,
+        "net_operating_income": None,
+    }
+
+    try:
+        with pdfplumber.open(path) as pdf:
+            full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
+        patterns = {
+            "gross_potential_rent": r"(Gross\s+Potential\s+Rent)[:\s]*\$?([\d,\.]+)",
+            "vacancy": r"(Vacancy|Credit\s+Loss)[:\s]*\$?([\d,\.]+)",
+            "effective_gross_income": r"(Effective\s+Gross\s+Income|EGI)[:\s]*\$?([\d,\.]+)",
+            "operating_expenses": r"(Operating\s+Expenses|Total\s+Expenses)[:\s]*\$?([\d,\.]+)",
+            "net_operating_income": r"(Net\s+Operating\s+Income|NOI)[:\s]*\$?([\d,\.]+)",
+        }
+
+        for key, pattern in patterns.items():
+            match = re.search(pattern, full_text, re.IGNORECASE)
+            if match:
+                val = match.group(2).replace(",", "")
+                try:
+                    result[key] = float(val)
+                except ValueError:
+                    pass
+
+    except Exception as e:
+        print(f"[WARN] parse_t12_summary_text failed for {path}: {e}")
+
+    return result

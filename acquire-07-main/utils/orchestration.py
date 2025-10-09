@@ -24,8 +24,9 @@ def run_pipeline(inputs: List[str], overrides: Optional[Dict[str, Any]] = None):
 
     print("\n--- RAG NARRATIVE EXTRACTION ---")
     splits = split_documents(docs)
-    vs = build_vectorstore(splits)
+    vs = build_vectorstore_incremental(splits)
     narrative_fields = extract_narrative_fields(vs)
+    
 
     print("\n--- METRICS ---")
     metrics = compute_metrics(t12_summary, rent_roll_summary, narrative_fields, overrides=overrides)
