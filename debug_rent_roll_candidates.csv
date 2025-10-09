@@ -1,0 +1,27 @@
+page,window,tenant,sqft,amounts,lease_hint,best_amount
+1,"OFFERING MEMORANDUM | 475 Old Newport Blvd, Newport Beach, CA | TIM CARR GROUP | 949-631-9999 | tci@timcarrgroup.com | www.timcarrgroup.com",OFFERING MEMORANDUM,,"[475.0, 949.0, -631.0, -9999.0]",,949.0
+1,"475 Old Newport Blvd, Newport Beach, CA | TIM CARR GROUP | 949-631-9999 | tci@timcarrgroup.com | www.timcarrgroup.com","Old Newport Blvd, Newport Beach, CA",,"[475.0, 949.0, -631.0, -9999.0]",,949.0
+2,after markets. Don’t miss out on this rare opportunity to own a piece of | Newport Beach’s thriving landscape. | 475 OLD NEWPORT BLVD | O | L | D,Don,,[475.0],,475.0
+3,"PROPERTY DETAILS | 475 OLD NEWPORT BLVD | Price $1,799,999 | 475 Old Newport Blvd, | Address",PROPERTY DETAILS,,"[475.0, 1799999.0, 475.0]",,1799999.0
+3,"475 OLD NEWPORT BLVD | Price $1,799,999 | 475 Old Newport Blvd, | Address | Newport Beach, CA 92663 | 425-271-04",OLD NEWPORT BLVD,,"[475.0, 1799999.0, 475.0, 92663.0, 425.0, -271.0, -4.0]",,1799999.0
+3,"Address | Newport Beach, CA 92663 | 425-271-04 | APN# | (Property is on septic) | Year Built 1947",Address,,"[92663.0, 425.0, -271.0, -4.0, 1947.0]",,92663.0
+4,Building Sketch | Borrower N/A | 475 Old Newport Blvd | Newport Beach Orange CA 92663 | Client Tim Carr Group | FLOOR PLAN,Building Sketch,,"[475.0, 92663.0]",,92663.0
+4,3' | 9.5' | 10' | '3 | 40.5' | '01,,,"[3.0, 9.5, 10.0, 3.0, 40.5, 1.0]",,40.5
+4,10' | '3 | 40.5' | '01 | '21 | 16',,,"[10.0, 3.0, 40.5, 1.0, 21.0, 16.0]",,40.5
+4,'01 | '21 | 16' | Storage | Storage | 12',Storage,,"[1.0, 21.0, 16.0, 12.0]",,21.0
+4,Storage | Storage | 12' | 10' | Property Address | City County State Zip Code,Storage,,"[12.0, 10.0]",,12.0
+4,Storage | 12' | 10' | Property Address | City County State Zip Code,Storage,,"[12.0, 10.0]",,12.0
+7,AERIALS | 475 OLD NEWPORT BLVD | N | EW | P,AERIALS,,[475.0],,475.0
+8,V | E | 475 OLD NEWPORT BLVD | N | E | W,OLD NEWPORT BLVD,,[475.0],,475.0
+9,"PP 00 | VV 22,, | 00 | 00 | 00 | DDrr",PP 00,,"[0.0, 22.0, 0.0, 0.0, 0.0]",,22.0
+9,"VV 22,, | 00 | 00 | 00 | DDrr | (( 55","VV 22,,",,"[22.0, 0.0, 0.0, 0.0, 55.0]",,55.0
+9,"00 | 00 | 00 | DDrr | (( 55 | 11,, eerr",DDrr,,"[0.0, 0.0, 0.0, 55.0, 11.0]",,55.0
+9,"DDrr | (( 55 | 11,, eerr | 11 44 DD oo vv | (( | dd",DDrr,,"[55.0, 11.0, 11.0, 44.0]",,55.0
+9,"(( 55 | 11,, eerr | 11 44 DD oo vv | (( | dd | vv",DD oo vv,,"[55.0, 11.0, 11.0, 44.0]",,55.0
+11,"HHuunnttiinnggttoonn | BBeeaacchh | 475 OLD NEWPORT BLVD | TRAVEL TIME | NNeewwppoorrtt | Newport Beach 12 mins, 4.6 mi BBeeaacchh",HHuunnttiinnggttoonn,,"[475.0, 12.0, 4.6]",,475.0
+11,"Laguna Beach 25 mins, 11.1 mi | LLaagguunnaa | 2024 BBeeaacchh | Population Median Age Ave. HH Size Ave. HH Income | 1 Mile 23,034 37.6 2.28 $186,718 | 3 Miles 124,337 39.6 2.38 $181,165","Laguna Beach 25 mins, 11.1 mi",,"[25.0, 11.1, 2024.0, 1.0, 23034.0, 37.6, 2.28, 186718.0, 3.0, 124337.0, 39.6, 2.38, 181165.0]",,186718.0
+12,"DEMOGRAPHICS | 2024 SUMMARY 1 MILE 3 MILES 5 MILES | Population 23,034 124,337 260,636 | Households 9,786 51,436 105,257 | Families 4,983 28,235 61,771",DEMOGRAPHICS,,"[2024.0, 1.0, 3.0, 5.0, 23034.0, 124337.0, 260636.0, 9786.0, 51436.0, 105257.0, 4983.0, 28235.0, 61771.0]",,260636.0
+12,"Median HH Income $126,691 $121,602 $124,853 | Avg HH Income $186,718 $181,165 $180,155 | 2029 SUMMARY 1 MILE 3 MILES 5 MILES 475 OLD NEWPORT BLVD | Population 22,723 124,228 260,504 | Households 9,928 52,735 108,236 | 1 MILE",Median HH Income,,"[126691.0, 121602.0, 124853.0, 186718.0, 181165.0, 180155.0, 2029.0, 1.0, 3.0, 5.0, 475.0, 22723.0, 124228.0, 260504.0, 9928.0, 52735.0, 108236.0, 1.0]",,260504.0
+12,"Avg HH Income $213,106 $207,321 $205,782 | 5 MILE | 23,666 227,817 | TOTAL BUSINESSES TOTAL EMPLOYEES | OFFERING MEMORANDUM | 475 Old Newport Blvd, Newport Beach, CA 12",Avg HH Income,,"[213106.0, 207321.0, 205782.0, 5.0, 23666.0, 227817.0, 475.0, 12.0]",,227817.0
+13,"OFFERING MEMORANDUM | 475 Old Newport Blvd, Newport Beach, CA | TIM CARR GROUP | 949-631-9999 | tci@timcarrgroup.com | www.timcarrgroup.com",OFFERING MEMORANDUM,,"[475.0, 949.0, -631.0, -9999.0]",,949.0
+13,"475 Old Newport Blvd, Newport Beach, CA | TIM CARR GROUP | 949-631-9999 | tci@timcarrgroup.com | www.timcarrgroup.com","Old Newport Blvd, Newport Beach, CA",,"[475.0, 949.0, -631.0, -9999.0]",,949.0

@@ -115,8 +115,12 @@ export default function FileUpload() {
       // formData.append('overrides', JSON.stringify({ purchase_price: 1000000 }))
 
       // Do not set Content-Type manually; the browser sets the boundary
-      const response = await fetch('https://underwriting-at5l.onrender.com/underwrite', {
-        method: 'POST',
+      // const response = await fetch('https://underwriting-at5l.onrender.com/underwrite', {
+      //   method: 'POST',
+      //   body: formData,
+      // })
+        const response = await fetch('http://localhost:8000/underwrite', {
+         method: 'POST',
         body: formData,
       })
 
