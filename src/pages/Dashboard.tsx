@@ -74,7 +74,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img
-                src="/lovable-uploads/32801df0-3105-4879-afde-7c180138cc4a.png"
+                src="/lovable-uploads/thumbnail_6EF3FB90-6A8A-4B64-A2A6-69D9386F87AF.png"
                 alt="Acquire logo"
                 className="h-8 w-auto object-contain"
                 loading="lazy"

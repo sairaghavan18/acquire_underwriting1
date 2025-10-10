@@ -125,8 +125,8 @@ export default function AnalysisResults(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <Button variant="default" className="absolute top-4 right-4 z-50" onClick={() => navigate('/home')}>
-        Back to Home
+      <Button variant="default" className="absolute top-4 right-4 z-50" onClick={() => navigate('/dashboard')}>
+        Back to Dashboard
       </Button>
 
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
