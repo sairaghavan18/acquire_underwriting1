@@ -38,7 +38,25 @@ def parse_rent_roll_from_text(path: str) -> pd.DataFrame:
                         window = " | ".join(lines[max(0, idx-2): idx+4])
                         amounts = _extract_amounts_from_line(window)
                         sqft = None
-                        m_sq = re.search(r"(\d{3,6})(?:\s?(?:sf|sq\.?ft|s\.f\.))", window.replace(",", "").lower())
+                        m_sq = re.search(
+        r"""
+        (?:                # Start non-capturing group for variations
+            (?:building\s*(?:size|area|sf))|
+            (?:total\s*(?:area|sf|sqft|square\s?footage|square\s?feet))|
+            (?:gross\s*(?:building|leasable)\s*(?:area|sf))|
+            (?:square\s?(?:foot|feet|footage))|
+            (?:sq\s?(?:ft|feet|foot))|
+            (?:s\.?\s?f\.?)|
+            (?:sf)|
+            (?:sqft)
+        )?                 # Optional prefix like "building size" or "square footage"
+        [^\d]{0,10}        # Allow a few non-digit characters between label and number
+        (\d{3,8})          # Capture number (3 to 8 digits, e.g. 125043)
+        (?:\s?(?:sf|sq\.?ft|s\.f\.|square\s?feet|square\s?foot|sq\s?feet|sq\s?foot|square\s?footage))?
+        """,
+        text,
+        re.IGNORECASE | re.VERBOSE,
+    )
                         if m_sq:
                             sqft = _to_number(m_sq.group(1))
                         lease = None

@@ -126,3 +126,19 @@ Context:
             narrative[key] = "Not found"
 
     return narrative
+def extract_sqft_value(value):
+    """
+    Extract a numeric square footage from messy strings like '125,043 SF', '125k sqft', '125043 sq ft', etc.
+    """
+    if not value:
+        return None
+    if isinstance(value, (int, float)):
+        return value
+    text = str(value).lower().replace(",", "").strip()
+    m = re.search(r"(\d{3,8})(?:\s?(?:sf|sq\.?ft|s\.f\.|square\s?feet|square\s?foot|sq\s?foot|sq\s?feet|sqft|sq\s?ft|s/f|s f))?", text)
+    if m:
+        try:
+            return int(m.group(1))
+        except:
+            return float(m.group(1))
+    return None

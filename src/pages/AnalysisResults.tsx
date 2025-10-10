@@ -71,6 +71,7 @@ export default function AnalysisResults(): JSX.Element {
   const aiAnalysis = data.ai_analysis || {}
   const rentRoll = data.rent_roll_summary || {}
   const narrative = data.narrative_fields || {}
+  const executive_summary = (data as any).executive_summary || ''
 
   const getRecommendationColor = (recommendation?: string) => {
     if (!recommendation) return 'bg-gray-500'
@@ -343,7 +344,7 @@ export default function AnalysisResults(): JSX.Element {
               <h3 className="text-lg font-semibold mb-3">Executive Summary</h3>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <p className="text-sm text-gray-700">
-                  {aiSummary || 'Comprehensive investment analysis based on extracted financials and narrative fields from uploaded documents.'}
+                  {executive_summary ||'Executive summary not available — based on extracted property and financial data.'}
                 </p>
               </div>
             </div>
@@ -353,11 +354,11 @@ export default function AnalysisResults(): JSX.Element {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-sm font-medium text-gray-600">Property Name</p>
-                  <p className="text-lg font-semibold">{quick.property || narrative.property_name || 'N/A'}</p>
+                  <p className="text-lg font-semibold">{quick.property_name || narrative.property_name || 'N/A'}</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-sm font-medium text-gray-600">Address</p>
-                  <p className="text-lg font-semibold">{quick.address || narrative.property_address || 'N/A'}</p>
+                  <p className="text-lg font-semibold">{quick.property_address || narrative.property_address || 'N/A'}</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-sm font-medium text-gray-600">Type</p>

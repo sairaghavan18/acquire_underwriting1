@@ -201,6 +201,7 @@ async def underwrite(
         # Generate AI underwriting summary
         ai_summary = generate_underwriting_summary(narrative_fields, metrics)
         ai_analysis = generate_underwriting_analysis(narrative_fields, metrics)
+        ai_executive_summary = generate_executive_summary(narrative_fields, metrics)
  
         # Clean all data before processing
         clean_narrative_fields = clean_dict_for_json(narrative_fields)
@@ -217,11 +218,12 @@ async def underwrite(
             "narrative_fields": clean_narrative_fields,
             "metrics": clean_metrics,
             "ai_summary": ai_summary,
+            "executive_summary": ai_executive_summary,
             "quick_summary": {
                 "property": clean_narrative_fields.get("property_name"),
                 "address": clean_narrative_fields.get("property_address"),
                 "year_built": clean_narrative_fields.get("year_built"),
-                "sqft": clean_narrative_fields.get("total_building_sqft"),
+                "sqft": extract_sqft_value(narrative_fields.get("total_building_sqft")),
                 "NOI": clean_t12_summary.get("net_operating_income"),
                 "Expenses": clean_t12_summary.get("operating_expenses"),
                 "GPR": clean_t12_summary.get("gross_potential_rent"),
@@ -238,6 +240,7 @@ async def underwrite(
                 "Investment Recommendation": ai_analysis.get("investment_recommendation"),
                 "Key Investment Highlights": ai_analysis.get("key_investment_highlights"),
                 "Risk Considerations": ai_analysis.get("risk_considerations"),
+            
             },
         }
  

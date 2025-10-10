@@ -35,6 +35,8 @@ def run_pipeline(inputs: List[str], overrides: Optional[Dict[str, Any]] = None):
 
     print("\n--- AI UNDERWRITING ANALYSIS ---")
     ai_analysis = generate_underwriting_analysis(narrative_fields, metrics)
+    executive_summary = generate_executive_summary(narrative_fields, metrics)
+    
     print(json.dumps(ai_analysis, indent=2))
 
     print("\n--- QUICK SUMMARY ---")
@@ -50,3 +52,4 @@ def run_pipeline(inputs: List[str], overrides: Optional[Dict[str, Any]] = None):
     print(f"Investment Recommendation: {ai_analysis.get('investment_recommendation')}")
     print(f"Key Investment Highlights: {ai_analysis.get('key_investment_highlights')}")
     print(f"Risk Considerations: {ai_analysis.get('risk_considerations')}")
+    print(executive_summary)
