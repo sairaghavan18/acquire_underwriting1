@@ -141,7 +141,7 @@ export default function AnalysisResults(): JSX.Element {
                 <div>
                   <p className="text-sm text-gray-600">Purchase Price</p>
                   <p className="text-2xl font-bold text-gray-900">
-                    ${(narrative.purchase_price ?? 0).toLocaleString()}
+                    {(narrative.purchase_price ?? 0).toLocaleString()}
                   </p>
                 </div>
                 <DollarSign className="h-8 w-8 text-blue-400" />
