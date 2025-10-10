@@ -2,15 +2,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
- // if not using Next, replace with <img src="/login.png" />
 import { supabase } from "@/services/supabaseClient";
-
 
 type BackendUser = { email: string | null; name?: string; picture?: string };
 
-
 export default function AuthPage(): JSX.Element {
-  const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -57,13 +54,14 @@ export default function AuthPage(): JSX.Element {
     setError(null);
 
     try {
-      // 🔍 Check if user already exists before creating new one
+      // 🔍 Check if user already exists
       const { data: existingUsers, error: existingError } = await supabase
         .from("users")
         .select("email")
         .eq("email", email);
 
       if (existingError) throw existingError;
+
       if (existingUsers && existingUsers.length > 0) {
         setError("User already exists. Please sign in instead.");
         setLoading(false);
@@ -86,7 +84,7 @@ export default function AuthPage(): JSX.Element {
         return;
       }
 
-      // 🧾 Save user record in your backend (only if new)
+      // 🧾 Save user in backend
       try {
         const payload: BackendUser = { email, name, picture: "" };
         await fetch("https://acquire-underwriting1.onrender.com/save_user", {
@@ -95,10 +93,10 @@ export default function AuthPage(): JSX.Element {
           body: JSON.stringify(payload),
         });
       } catch {
-        // okay in dev
+        // ignore network errors in dev
       }
 
-      // 🎯 If email confirmation is on, show notice
+      // 🎯 Redirect or show confirmation message
       if (data?.session) navigate("/dashboard");
       else setError("Check your inbox to confirm your email.");
     } catch (err: any) {
@@ -125,6 +123,15 @@ export default function AuthPage(): JSX.Element {
 
       <div className="space-y-4 w-full max-w-sm">
         {error && <p className="text-red-600 text-sm">{error}</p>}
+
+        {/* 🧑 Name */}
+        <input
+          type="text"
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full rounded-md border px-4 py-2"
+        />
 
         {/* 🔐 Email */}
         <input
@@ -157,15 +164,6 @@ export default function AuthPage(): JSX.Element {
         </Button>
 
         <div className="text-center text-gray-500">or</div>
-
-        {/* ✍️ Name only for sign-up */}
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border px-4 py-2"
-        />
 
         {/* 🧾 Sign Up */}
         <Button variant="secondary" onClick={signUpWithEmail} className="w-full" disabled={loading}>
