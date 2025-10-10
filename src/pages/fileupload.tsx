@@ -119,7 +119,7 @@ export default function FileUpload() {
       //   method: 'POST',
       //   body: formData,
       // })
-        const response = await fetch('http://localhost:8000/underwrite', {
+        const response = await fetch('https://acquire-underwriting1.onrender.com/underwrite', {
          method: 'POST',
         body: formData,
       })
