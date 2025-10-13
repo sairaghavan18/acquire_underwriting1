@@ -195,82 +195,170 @@ export default function AnalysisResults(): JSX.Element {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="bg-white/70 backdrop-blur-sm shadow-md border border-gray-100">
-            <CardHeader>
-              <CardTitle className="text-gray-800">Financial Metrics</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={financialMetricsData}>
-                  <XAxis dataKey="name" stroke="#9CA3AF" />
-                  <YAxis stroke="#9CA3AF" />
-                  <Tooltip contentStyle={{ backgroundColor: 'rgba(255,255,255,0.9)', border: '1px solid #E5E7EB', borderRadius: '8px' }} />
-                  <Bar dataKey="value" fill="rgba(59,130,246,0.6)" radius={[6, 6, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+  {/* Financial Metrics */}
+  <Card className="bg-white/70 backdrop-blur-sm shadow-md border border-gray-100 h-[400px] relative"> {/* uniform height */}
+    <CardHeader className="pb-0">
+      <CardTitle className="text-gray-800">Financial Metrics</CardTitle>
+    </CardHeader>
+    <CardContent className="h-[350px] pt-2">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={financialMetricsData} margin={{ top: 10, right: 16, left: 8, bottom: 56 }}>
+          <XAxis dataKey="name" stroke="#9CA3AF" interval={0} tick={{ fontSize: 12 }} height={36} />
+          <YAxis stroke="#9CA3AF" tick={{ fontSize: 12 }} width={64}
+                 tickFormatter={(v:number)=> v>=1e12?`${(v/1e12).toFixed(2)}T`:v>=1e9?`${(v/1e9).toFixed(2)}B`:v>=1e6?`${(v/1e6).toFixed(2)}M`:v>=1e3?`${(v/1e3).toFixed(2)}K`:`${v}`} />
+          <Tooltip contentStyle={{ backgroundColor: 'rgba(255,255,255,0.95)', border: '1px solid #E5E7EB', borderRadius: 8 }}
+                   formatter={(v:number)=>[v.toLocaleString(),'Value']} />
+          <Legend wrapperStyle={{ position:'absolute', left:0, right:0, bottom:0, padding:'6px 8px', display:'flex', flexWrap:'wrap', gap:12, justifyContent:'center', fontSize:12, color:'#374151' }} />
+          <Bar dataKey="value" fill="rgba(59,130,246,0.7)" radius={[8, 8, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </CardContent>
+  </Card>
 
-          <Card className="bg-white/70 backdrop-blur-sm shadow-md border border-gray-100">
-            <CardHeader>
-              <CardTitle className="text-gray-800">Operating Summary</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={250}>
-                <PieChart>
-                  <Pie data={expenseData} dataKey="value" nameKey="name" outerRadius={90} label>
-                    {expenseData.map((_, i) => (
-                      <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Legend />
-                  <Tooltip contentStyle={{ backgroundColor: 'rgba(255,255,255,0.9)', border: '1px solid #E5E7EB', borderRadius: '8px' }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
+ {/* Operating Summary */}
+<Card className="bg-white/70 backdrop-blur-sm shadow-md border border-gray-100 h-[400px] relative">
+  <CardHeader className="pb-0">
+    <CardTitle className="text-gray-800">Operating Summary</CardTitle>
+  </CardHeader>
+  <CardContent className="h-[350px] pt-2">
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart margin={{ top: 10, right: 10, left: 10, bottom: 56 }}>
+        <Pie
+          data={expenseData}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="44%"           // lift pie to leave room for legend
+          // innerRadius removed for full pie
+          outerRadius={105}  // smaller so it doesn’t overflow
+          label={false}
+          labelLine={false}
+          isAnimationActive={false}
+        >
+          {expenseData.map((_, i) => (
+            <Cell key={i} fill={COLORS[i % COLORS.length]} />
+          ))}
+        </Pie>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="shadow-lg rounded-2xl border border-gray-200 bg-white/70 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-gray-800">Rent Gap Analysis</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={150}>
-                <BarChart data={rentGapData}>
-                  <XAxis dataKey="name" stroke="#6b7280" />
-                  <YAxis stroke="#6b7280" />
-                  <Tooltip contentStyle={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: '12px' }} />
-                  <Bar dataKey="value" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" strokeWidth={2} radius={[6, 6, 0, 0]}>
-                    {rentGapData.map((d, i) => (
-                      <Cell key={i} fill={d.color + '33'} stroke={d.color} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+        <Tooltip
+          formatter={(v: number, n: string) => [`$${v.toLocaleString()}`, n]}
+          contentStyle={{
+            backgroundColor: 'rgba(255,255,255,0.95)',
+            border: '1px solid #E5E7EB',
+            borderRadius: 8,
+          }}
+        />
 
-          <Card className="shadow-lg rounded-2xl border border-gray-200 bg-white/70 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-gray-800">5-Year Financial Projection</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <ComposedChart data={fiveYearProjection}>
-                  <XAxis dataKey="year" stroke="#6b7280" />
-                  <YAxis stroke="#6b7280" />
-                  <Tooltip contentStyle={{ backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: '12px' }} />
-                  <Legend />
-                  <Bar dataKey="revenue" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" strokeWidth={2} radius={[6, 6, 0, 0]} name="Revenue" />
-                  <Bar dataKey="expenses" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" strokeWidth={2} radius={[6, 6, 0, 0]} name="Expenses" />
-                  <Line dataKey="noi" stroke="#10b981" strokeWidth={2.5} dot={{ r: 4, fill: '#10b981' }} name="NOI" />
-                </ComposedChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
+        <Legend
+          verticalAlign="bottom"
+          align="center"
+          iconType="circle"
+          iconSize={10}
+          wrapperStyle={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            padding: '6px 8px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 12,
+            justifyContent: 'center',
+            fontSize: 12,
+            color: '#374151',
+          }}
+          formatter={(value: string) => <span style={{ color: '#374151' }}>{value}</span>}
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  </CardContent>
+</Card>
+
+  {/* Rent Gap Analysis */}
+<Card className="shadow-lg rounded-2xl border border-gray-200 bg-white/70 backdrop-blur h-[400px] relative">
+  <CardHeader className="pb-0">
+    <CardTitle className="text-gray-800">Rent Gap Analysis</CardTitle>
+  </CardHeader>
+  <CardContent className="h-[350px] pt-2">
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={rentGapData.map(d => ({ ...d, value: Number(d.value || 0) }))}
+        margin={{ top: 10, right: 16, left: 8, bottom: 56 }}
+      >
+        <XAxis dataKey="name" stroke="#6b7280" tick={{ fontSize: 12 }} interval={0} height={36} />
+        <YAxis
+          stroke="#6b7280"
+          tick={{ fontSize: 12 }}
+          width={80}
+          tickFormatter={(v: number) =>
+            `$${v >= 1e12 ? `${(v / 1e12).toFixed(2)}T`
+              : v >= 1e9 ? `${(v / 1e9).toFixed(2)}B`
+              : v >= 1e6 ? `${(v / 1e6).toFixed(2)}M`
+              : v >= 1e3 ? `${(v / 1e3).toFixed(2)}K` : `${v}`}`
+          }
+        />
+        <Tooltip
+          formatter={(v: number, n: string) => [`$${v.toLocaleString()}`, n]}
+          contentStyle={{ backgroundColor: 'rgba(255,255,255,0.95)', borderRadius: 12 }}
+        />
+
+        {/* Custom legend: red = Current, green = Market */}
+        <Legend
+          wrapperStyle={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            padding: '6px 8px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 12,
+            justifyContent: 'center',
+            fontSize: 12,
+            color: '#374151',
+          }}
+          
+        />
+
+        <Bar dataKey="value" barSize={56} radius={[6, 6, 0, 0]}>
+          {rentGapData.map((d, i) => (
+            <Cell
+              key={i}
+              fill={(d.name?.toLowerCase() === 'current' ? '#ef4444' : '#10b981') + '66'}
+              stroke={d.name?.toLowerCase() === 'current' ? '#ef4444' : '#10b981'}
+            />
+          ))}
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  </CardContent>
+</Card>
+
+
+  {/* 5-Year Financial Projection */}
+  <Card className="shadow-lg rounded-2xl border border-gray-200 bg-white/70 backdrop-blur h-[400px] relative">
+    <CardHeader className="pb-0">
+      <CardTitle className="text-gray-800">5-Year Financial Projection</CardTitle>
+    </CardHeader>
+    <CardContent className="h-[350px] pt-2">
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={fiveYearProjection} margin={{ top: 10, right: 16, left: 8, bottom: 56 }}>
+          <XAxis dataKey="year" stroke="#6b7280" tick={{ fontSize: 12 }} interval={0} height={36} />
+          <YAxis stroke="#6b7280" tick={{ fontSize: 12 }} width={80}
+                 tickFormatter={(v:number)=> `$${v>=1e12?`${(v/1e12).toFixed(2)}T`:v>=1e9?`${(v/1e9).toFixed(2)}B`:v>=1e6?`${(v/1e6).toFixed(2)}M`:v>=1e3?`${(v/1e3).toFixed(2)}K`:`${v}`}`} />
+          <Tooltip contentStyle={{ backgroundColor:'rgba(255,255,255,0.95)', borderRadius:12 }}
+                   formatter={(v:number,n:string)=>[`$${v.toLocaleString()}`, n]} />
+          <Legend wrapperStyle={{ position:'absolute', left:0, right:0, bottom:0, padding:'6px 8px', display:'flex', flexWrap:'wrap', gap:12, justifyContent:'center', fontSize:12, color:'#374151' }} />
+          <Bar dataKey="revenue" fill="rgba(59, 130, 246, 0.3)" stroke="#3b82f6" strokeWidth={2} radius={[8, 8, 0, 0]} name="Revenue" />
+          <Bar dataKey="expenses" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" strokeWidth={2} radius={[8, 8, 0, 0]} name="Expenses" />
+          <Line dataKey="noi" stroke="#10b981" strokeWidth={3} dot={{ r: 3, fill: '#10b981' }} name="NOI" />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </CardContent>
+  </Card>
+</div>
+
+
 
         <Card className="animate-fadeInUp">
           <CardHeader>
