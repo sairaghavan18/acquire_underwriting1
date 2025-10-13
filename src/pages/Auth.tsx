@@ -22,7 +22,7 @@ export default function AuthPage(): JSX.Element {
     setError(null);
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: "https://acquire-underwriting1.vercel.app/dashboard" },
+      options: { redirectTo: "${window.location.origin}/dashboard" },
     });
     if (error) setError(error.message);
     if (data?.url) window.location.href = data.url;
